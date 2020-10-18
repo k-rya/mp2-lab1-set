@@ -36,23 +36,20 @@ int TSet::GetMaxPower(void) const // получить макс. к-во эл-т�
 
 int TSet::IsMember(const int Elem) const // элемент множества?
 {
-	if (Elem >= MaxPower || Elem < 0)
-		throw "Element is out of range";
+	
 
 	return BitField.GetBit(Elem);
 }
 
 void TSet::InsElem(const int Elem) // включение элемента множества
 {
-	if (Elem >= MaxPower || Elem < 0)
-		throw "Element is out of range";
+	if
 	BitField.SetBit(Elem);
 }
 
 void TSet::DelElem(const int Elem) // исключение элемента множества
 {
-	if (Elem >= MaxPower || Elem < 0)
-		throw "Element is out of range";
+	
 	BitField.ClrBit(Elem);
 }
 
