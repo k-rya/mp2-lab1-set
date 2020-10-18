@@ -174,20 +174,28 @@ TBitField TBitField::operator~(void) // отрицание
 
 istream &operator>>(istream &istr, TBitField &bf) // ввод
 {
-	int k;
-	cin >> k;
-	while (k > -1)
-	{		bf.SetBit(k);
-	cin >> k; }
+	 int i = 0;
+  char string;
 
+  for (int a = 0; a < bf.GetLength(); a++)
+  {
+    istr >> string;
+    if (string == '1') bf.SetBit(i);
+    i++;
+  };
+	
   return istr;
 }
 
 ostream &operator<<(ostream &ostr, const TBitField &bf) // вывод
 {
-	cout << "{";
-	for (int k = 0; k < bf.BitLen; k++)
-		cout << bf.GetBit(k);
-	cout <<  "}"<< endl;
-  return ostr;
+		int len = bf.GetLength();
+	
+	for (int i = 0; i < len; i++)
+	{
+		if (bf.GetBit(i)) ostr << 1;
+		else ostr << 0;
+	}
+	
+	return ostr;
 }
