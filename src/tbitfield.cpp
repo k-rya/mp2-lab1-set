@@ -12,7 +12,8 @@
 TBitField::TBitField(int len)
 {
 	if (len <= 0)
-		throw "Negative length of array";
+		 throw logic_error("Negative bit length");
+
 	BitLen = len;
 	MemLen = (BitLen / BITS_IN_ONE_MEM);
 	if (BitLen % BITS_IN_ONE_MEM != 0)
@@ -39,9 +40,9 @@ TBitField::~TBitField()
 int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n
 {
 	if (n > BitLen)
-		throw "Index out of array";
+		throw logic_error("Index out of array");
 	if (n < 0)
-		throw "Negative index";
+		throw logic_error("Negative index");
 	int temp;
 	temp = n / BITS_IN_ONE_MEM;
 	return temp;
@@ -50,9 +51,9 @@ int TBitField::GetMemIndex(const int n) const // индекс Мем для би
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
 {
 	if (n > BitLen)
-		throw "Index out of array";
+		throw logic_error("Index out of array");
 	if (n < 0)
-		throw "Negative index";
+		throw logic_error ("Negative index");
 	TELEM temp = 1 << (n % BITS_IN_ONE_MEM);
 	return temp;
 }
@@ -67,9 +68,9 @@ int TBitField::GetLength(void) const // получить длину (к-во б�
 void TBitField::SetBit(const int n) // установить бит
 {	
 	if (n > BitLen)
-		throw "Index out of array";
+		throw logic_error("Index out of array");
 	if (n < 0)
-		throw "Negative index";
+		throw logic_error("Negative index");
 	int k = GetMemIndex(n);
 	pMem[k] = pMem[k] | GetMemMask(n);
 }
@@ -77,9 +78,9 @@ void TBitField::SetBit(const int n) // установить бит
 void TBitField::ClrBit(const int n) // очистить бит
 {
 	if (n > BitLen)
-		throw "Index out of array";
+		throw logic_error("Index out of array");
 	if (n < 0)
-		throw "Negative index";
+		throw logic_error("Negative index");
 	TELEM mask = GetMemMask(n);
 	int k = GetMemIndex(n);
 	pMem[k] &= ~mask;
@@ -114,7 +115,7 @@ TBitField& TBitField::operator=(const TBitField &bf) // присваивание
 int TBitField::operator==(const TBitField &bf) const // сравнение
 {
 	if (MemLen != bf.MemLen)
-		throw "BitFields are not equal size";
+		throw logic_error("BitFields are not equal size");
 	else if (BitLen != bf.BitLen) return 0;
 	for (int i = 0; i < MemLen; i++)
 		if (pMem[i] != bf.pMem[i])
