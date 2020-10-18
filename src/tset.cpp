@@ -130,16 +130,39 @@ TSet TSet::operator~(void) // дополнение
 
 istream& operator>>(istream& istr, TSet& s) // ввод
 {
-	int i;
-	cin >> i;
-	for (; i > -1; cin >> i)
-		s.BitField.SetBit(i);
-	return istr;
-}
+    int integ;
+    char ch;
 
+    istr >> ch;
+    while (ch != '}')
+    {
+        istr >> integ;
+        s.InsElem(integ);
+        istr >> ch;
+    }
+
+    return istr;
+}
 ostream& operator<<(ostream& ostr, const TSet& s) // вывод
 {
-	for (int i = 0; i < s.BitField.GetLength(); i++)
-		ostr << s << ' ';
-	return ostr;
+    int len = s.GetMaxPower();
+    int ind = 0, check_len = 0;
+
+    ostr << "{";
+    while (check_len < len)
+    {
+        if (s.IsMember(ind) == 1)
+        {
+            ostr << ind;
+            break;
+        }
+        ind++;
+        check_len++;
+    }
+    for (int i = check_len + 1; i < len; i++)
+        if (s.IsMember(i))
+            ostr << "," << i;
+    ostr << "}";
+
+    return ostr;
 }
