@@ -43,8 +43,8 @@ int TSet::IsMember(const int Elem) const // элемент множества?
 
 void TSet::InsElem(const int Elem) // включение элемента множества
 {
-	if
-	BitField.SetBit(Elem);
+	
+	return BitField.SetBit(Elem);
 }
 
 void TSet::DelElem(const int Elem) // исключение элемента множества
