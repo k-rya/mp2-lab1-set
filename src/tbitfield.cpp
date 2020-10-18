@@ -86,15 +86,17 @@ void TBitField::ClrBit(const int n) // очистить бит
 }
 
 int TBitField::GetBit(const int n) const // получить значение бита
-{
-	int k = GetMemIndex(n);
-	if (k > BitLen)
-		throw "Index out of array";
-	if (k < 0)
-		throw "Negative index";
-    TELEM temp = pMem[k] & GetMemMask(n);
-	if (temp > 0) return 1; 
-	else return 0;
+{{
+	if (n < 0) throw logic_error("Negative bit length");
+	if (n >= BitLen) throw logic_error("Too large index");
+	
+	int size = sizeof(TELEM) * 8;
+	int i = n / size;
+	int j = n % size;
+
+	if ((pMem[i] & (1 << j)) == 0) return 0;
+	else return 1;
+}
 }
 
 // битовые операции
